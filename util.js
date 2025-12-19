@@ -3,7 +3,7 @@ const biblia = require('./blv');
 const hebraico = require('./heb');
 const grego = require('./grc');
 const transliteracao = require('./translit');
-// const blv = require('./blvetor');
+const vetor = require('./blvetor');
 
 
 exports.get_siglas = (tipo) => {
@@ -43,28 +43,6 @@ exports.get_refs = () => {
         "2PE","1JO","2JO","3JO","JUD","REV"
     ];
     
-}
-
-
-
-exports.montar_referencia_biblia = (chave) => {
-    let vetor = chave.split('_');
-    let valor = '';
-    if (vetor.length > 2) {
-        const livro = vetor[0];
-        const capitulo = vetor[1];
-        const versiculo = vetor[2];
-        const indice = this.get_refs().indexOf(livro);
-        const nomelivro = this.get_livro(indice);
-        valor = nomelivro+ " " + capitulo +":" + versiculo;
-    } else {
-        const livro = vetor[0];
-        const capitulo = vetor[1];
-        const indice = this.get_refs().indexOf(livro);
-        const nomelivro = this.get_livro(indice);
-        valor = nomelivro+ " " + capitulo;
-    }
-    return valor;
 }
 
 exports.get_nomes_livros = (tipo) => {
@@ -154,17 +132,18 @@ exports.get_translit_chave = (chave) => {
         return transliteracao.get_texto(chave);
 }
 
-// exports.get_palavra_biblia = (palavra) => {
-//     const conteudo = blv.get_blv_vetor();
-//     let saida = [];
+exports.buscar = (palavra) => {
+    const conteudo = vetor.get_blv_vetor();
+    let saida = [];
 
-//     for (let item of conteudo) {
-//         if (item.texto.toLowerCase().indexOf(palavra.toLowerCase()) >= 0) {
-//             saida.push(item);
-//         }
-//     }
+    for (let i = 0; i<conteudo.length; i++) {
+        const item = conteudo[i];
+        if (item.texto.toLowerCase().indexOf(palavra.toLowerCase()) >= 0) {
+            saida.push(item.referencia);
+        }
+    }
 
-//     return saida;
-// }
+    return saida;
+}
 
 

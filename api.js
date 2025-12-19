@@ -69,12 +69,12 @@ app.get('/versos/:livro/:capitulo', (req,res) => {
   res.send( util.get_qtd_versos(posicao, req.params["capitulo"])+"" );
 });
 
-// TODO : trazer todas as referencias de uma palavra, no formato LLL_CCC_VVV, 
-// onde L = sigla livro, C = numero capitulo, V = numero versiculo
+app.get('/buscar/:palavra', (req,res) => {
+  const resultados = util.buscar(req.params["palavra"]);
+  res.send(resultados);
+})
 
 
-
-//função principal para ouvir na porta do serviço
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
