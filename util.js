@@ -6,6 +6,31 @@ const transliteracao = require('./translit');
 // const blv = require('./blvetor');
 
 
+exports.get_siglas = (tipo) => {
+    const novo = ["MAT",
+        "MAR","LUK","JOH","ACT","ROM","1CO","2CO","GAL","EPH","PHI",
+        "COL","1TH","2TH","1TI","2TI","TIT","PHM","HEB","JAM","1PE",
+        "2PE","1JO","2JO","3JO","JUD","REV"];
+    const velho = ["GEN","EXO","LEV","NUM","DEU","JOS","JDG","RUT","1SA","2SA",
+        "1KI","2KI","1CH","2CH","EZR","NEH","EST","JOB","PSA","PRO",
+        "ECC","SOL","ISA","JER","LAM","EZE","DAN","HOS","JOE","AMO",
+        "OBA","JON","MIC","NAH","HAB","ZEP","HAG","ZEC","MAL"];
+    if (tipo == "novo") {
+        return novo;
+    }    
+    return velho;
+}
+
+exports.in_velho = (chave) => {
+    const lista = this.get_siglas("velho");
+    return lista.includes(chave);    
+} 
+
+exports.in_novo = (chave) => {
+    const lista = this.get_siglas("novo");
+    return lista.includes(chave);    
+} 
+
 
 exports.get_refs = () => {
     return [
@@ -40,6 +65,26 @@ exports.montar_referencia_biblia = (chave) => {
         valor = nomelivro+ " " + capitulo;
     }
     return valor;
+}
+
+exports.get_nomes_livros = (tipo) => {
+    const velho = ["GÊNESIS","ÊXODO","LEVÍTICO","NÚMEROS","DEUTERONÔMIO",
+    "JOSUÉ","JUÍZES","RUTE","I SAMUEL","II SAMUEL",
+    "I REIS","II REIS","I CRÔNICAS","II CRÔNICAS","ESDRAS",
+    "NEEMIAS","ESTER","JÓ","SALMOS","PROVÉRBIOS","ECLESIASTES",
+    "CANTARES","ISAÍAS","JEREMIAS","LAMENTAÇÕES","EZEQUIEL","DANIEL",
+    "OSÉIAS","JOEL","AMÓS","OBADIAS","JONAS","MIQUÉIAS","NAUM",
+    "HABACUQUE","SOFONIAS","AGEU","ZACARIAS","MALAQUIAS"];
+    const novo = ["MATEUS",
+    "MARCOS","LUCAS","JOÃO","ATOS","ROMANOS","I CORÍNTIOS","II CORÍNTIOS",
+    "GÁLATAS","EFÉSIOS","FILIPENSES","COLOSSENSES","I TESSALONICENSES",
+    "II TESSALONICENSES","I TIMÓTEO","II TIMÓTEO","TITO","FILEMON",
+    "HEBREUS","TIAGO","I PEDRO","II PEDRO","I JOÃO","II JOÃO",
+    "III JOÃO","JUDAS","APOCALIPSE"];
+    if (tipo == "novo") {
+        return novo;
+    } 
+    return velho;
 }
 
 exports.get_livros = () => { 
@@ -77,7 +122,7 @@ exports.get_capitulos = (i) => {
     13, 10, 42, 150, 31, // Neemias – Provérbios
     12, 8, 66, 52, 5,    // Eclesiastes – Lamentações
     48, 12, 14, 3, 9,    // Ezequiel – Amós
-    1, 4, 7, 3, 3,       // Obadias – Sofonias
+    1, 4, 7, 3, 3, 3,      // Obadias – Sofonias
     2, 14, 4,            // Ageu – Malaquias
     28, 16, 24, 21, 28,  // Evangelhos e Atos
     16, 16, 13, 6, 6,    // Romanos – Efésios
